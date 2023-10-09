@@ -1,13 +1,12 @@
-// ignore_for_file: sort_child_properties_last
-
 import 'package:alt/bottom_bar.dart';
 import 'package:alt/constant/app_style.dart';
-import 'package:alt/constant/const_appointment_details.dart';
 import 'package:alt/constant/constant_text_form_field.dart';
 import 'package:alt/constant/date_picker.dart';
 import 'package:alt/constant/responsive_size.dart';
+import 'package:date_field/date_field.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BookAppointmentPage extends StatefulWidget {
@@ -17,20 +16,19 @@ class BookAppointmentPage extends StatefulWidget {
   State<BookAppointmentPage> createState() => _BookAppointmentPageState();
 }
 
-List<DropdownMenuItem<String>> get dropdownItems {
-  List<DropdownMenuItem<String>> menuItems = [
-    const DropdownMenuItem(child: Text("Technology"), value: "Technology"),
-    const DropdownMenuItem(child: Text("saloon"), value: "saloon"),
-    const DropdownMenuItem(child: Text("Polyclinics"), value: "Polyclinics"),
-    const DropdownMenuItem(child: Text("Hospital"), value: "Hospital"),
-  ];
-  return menuItems;
-}
+const List<String> list = <String>[
+  '',
+  'Software',
+  'Customer care',
+  'Marketing',
+  'Accounts'
+];
 
+final _formKey = GlobalKey<FormState>();
 String? txtHint;
 
 class _BookAppointmentPageState extends State<BookAppointmentPage> {
-  String selectedValue = "Technology";
+  String dropdownValue = list.first;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +49,8 @@ class _BookAppointmentPageState extends State<BookAppointmentPage> {
         ),
         centerTitle: true,
         title: Text(
-          'Create new appointment',
-          style: kPoppinsMedium.copyWith(
+          'Book an appointment',
+          style: kPoppinsBold.copyWith(
             fontSize: SizeCofig.blockSizeHorizontal! * 4,
             color: kDarkBlue,
           ),
@@ -63,284 +61,223 @@ class _BookAppointmentPageState extends State<BookAppointmentPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: SizeCofig.screenHeight! / 3,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 20,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: SizeCofig.blockSizeVertical! * 18,
-                          width: SizeCofig.screenWidth! * 0.916,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: kWhite,
-                            borderRadius: BorderRadius.circular(kBorderRadius),
-                            boxShadow: [
-                              BoxShadow(
-                                color: kGrey.withOpacity(0.4),
-                                offset: const Offset(0.0, 4.0),
-                                blurRadius: 24.0,
-                                spreadRadius: 0.3,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Select your visit type, we will determine the appropriate choice for you. ',
-                                style: kPoppinsMedium.copyWith(
-                                  fontSize: SizeCofig.blockSizeHorizontal! * 3,
-                                  color: kDarkBlue,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              dropDownList(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
             Container(
               width: double.infinity,
-              height: SizeCofig.screenHeight! * 0.8,
+              height: SizeCofig.screenHeight! * 0.85,
               padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 26),
-              decoration: BoxDecoration(
-                color: kWhite,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(42),
-                  topRight: Radius.circular(42),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: kGrey.withOpacity(0.5),
-                    offset: const Offset(0.0, 8.0),
-                    blurRadius: 24.0,
-                    spreadRadius: 0.8,
-                  ),
-                ],
-              ),
               child: Column(
                 children: [
-                  Row(
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Column(
                     children: [
-                      Text('Select your Polyclinic',
-                          style: kPoppinsBold.copyWith(
-                            fontSize: SizeCofig.blockSizeHorizontal! * 4,
-                            color: kDarkBlue,
-                          )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  dropDownList(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const HorizontalData(
-                    leftText: 'Select your preferred personel',
-                    rightText: 'View all',
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    height: SizeCofig.screenHeight! / 9,
-                    width: SizeCofig.screenWidth! * 0.93,
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: kWhite,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                        bottomLeft: Radius.circular(24),
-                        bottomRight: Radius.circular(24),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: kGrey.withOpacity(0.22),
-                          offset: const Offset(0.0, 4.0),
-                          blurRadius: 24.0,
-                          spreadRadius: 0.3,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                      Form(
+                        key: _formKey,
+                        child: Column(
                           children: [
-                            Container(
-                              height: SizeCofig.blockSizeHorizontal! * 16,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(kBorderRadius),
+                            Row(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Appointment Title',
+                                      style: kPoppinsBold.copyWith(
+                                        fontSize:
+                                            SizeCofig.blockSizeHorizontal! * 3,
+                                        color: kDarkBlue,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    Text(
+                                      'Appointment Address and Zip code',
+                                      style: kPoppinsMedium.copyWith(
+                                        fontSize:
+                                            SizeCofig.blockSizeHorizontal! * 3,
+                                        color: kGrey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Select Ctegory',
+                                  style: kPoppinsBold.copyWith(
+                                    fontSize:
+                                        SizeCofig.blockSizeHorizontal! * 2.7,
+                                    color: kDarkBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            categoryPicker(),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Select Date',
+                                  style: kPoppinsBold.copyWith(
+                                    fontSize:
+                                        SizeCofig.blockSizeHorizontal! * 2.7,
+                                    color: kDarkBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            FormContainerDatePicker(
+                              textForm: DateForm(
+                                dateType: DateTimeFieldPickerMode.date,
+                                formText: 'Select Date',
+                                erroText: 'Date can not be empty or past',
+                                formIcon: const Icon(
+                                  Icons.calendar_month,
+                                  color: kdarkGreen,
+                                ),
+                                textInputType: TextInputType.datetime,
+                                text: false,
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      SizeCofig.blockSizeHorizontal! / 16),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const HorizontalData(
+                              rightColor: kDarkBlue,
+                              leftText: 'Select start time',
+                              rightText: 'Select end time',
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                FormContainerTimePicker(
+                                  textForm: DateForm(
+                                    dateType: DateTimeFieldPickerMode.time,
+                                    erroText: 'Start time can not be empty',
+                                    formText: 'Start Time',
+                                    formIcon: const Icon(
+                                      Icons.timer,
+                                      color: kdarkGreen,
+                                    ),
+                                    textInputType: TextInputType.datetime,
+                                    text: false,
+                                  ),
+                                ),
+                                FormContainerTimePicker(
+                                  textForm: DateForm(
+                                    dateType: DateTimeFieldPickerMode.time,
+                                    erroText: 'Specify end time',
+                                    formText: 'End Time',
+                                    formIcon: const Icon(
+                                      Icons.timelapse,
+                                      color: kdarkGreen,
+                                    ),
+                                    textInputType: TextInputType.datetime,
+                                    text: false,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            FormContainer(
+                              textForm: TextForm(
+                                textFormater: FilteringTextInputFormatter.allow(
+                                  RegExp(r"[a-zA-Z]+|\s"),
+                                ),
+                                errorTextValidator: '',
+                                validator: RegExp(r"[a-zA-Z]+|\s"),
+                                controller: TextEditingController(),
+                                onChanged: () {},
+                                errorText: 'Appointment purpose is required',
+                                text: false,
+                                textInputType: TextInputType.text,
+                                formText: 'Enter appointment purpose',
+                                formIcon: const Icon(
+                                  Icons.note_add,
+                                  color: kdarkGreen,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              height: SizeCofig.screenHeight! / 20,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: kLightGreen,
+                                  borderRadius:
+                                      BorderRadius.circular(kBorderRadius)),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 24,
-                                        backgroundColor: kWhite,
-                                        child: SvgPicture.asset(
-                                          'icons/profile.svg',
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 12,
-                                      ),
-                                      const Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          PersonBookingDetails(
-                                            personName: 'Simon John',
-                                            position: 'Mobile App',
-                                            designation: 'software developer',
-                                            textColor: kDarkBlue,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: SizeCofig.screenWidth! / 8,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: SvgPicture.asset(
-                                      'icons/arrow-black.svg',
-                                      width: SizeCofig.blockSizeHorizontal! * 7,
+                                  SvgPicture.asset('icons/info.svg'),
+                                  Text(
+                                    'Complete all your Detail before continuing',
+                                    style: kPoppinsRegular.copyWith(
+                                      fontSize:
+                                          SizeCofig.blockSizeHorizontal! * 3,
+                                      color: kDarkBlue,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
+                            const SizedBox(
+                              height: 28,
+                            ),
+                            Container(
+                              height: SizeCofig.screenHeight! / 14,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: kLightGreen,
+                                borderRadius:
+                                    BorderRadius.circular(kBorderRadius),
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('data saved'),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  'Book an appointment',
+                                  style: kPoppinsBold.copyWith(
+                                    fontSize:
+                                        SizeCofig.blockSizeHorizontal! * 4,
+                                    color: kDarkBlue,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const HorizontalData(
-                    leftText: 'Select date',
-                    rightText: 'Select time',
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FormContainerDatePicker(
-                        textForm: DateForm(
-                          formText: 'Date',
-                          formIcon: Icon(
-                            Icons.calendar_month,
-                            color: kdarkGreen,
-                          ),
-                          textInputType: TextInputType.datetime,
-                          text: false,
-                        ),
                       ),
-                      FormContainerDatePicker(
-                        textForm: DateForm(
-                          formText: 'Time',
-                          formIcon: Icon(
-                            Icons.timer,
-                            color: kdarkGreen,
-                          ),
-                          textInputType: TextInputType.datetime,
-                          text: false,
-                        ),
-                      )
                     ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const FormContainer(
-                    textForm: TextForm(
-                      text: false,
-                      textInputType: TextInputType.text,
-                      formText: 'Enter appointment purpose',
-                      formIcon: Icon(
-                        Icons.note_add,
-                        color: kdarkGreen,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    height: SizeCofig.screenHeight! / 20,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: kLightGreen,
-                        borderRadius: BorderRadius.circular(kBorderRadius)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('icons/info.svg'),
-                        Text(
-                          'Complete all your Detail before continuing',
-                          style: kPoppinsRegular.copyWith(
-                            fontSize: SizeCofig.blockSizeHorizontal! * 3,
-                            color: kDarkBlue,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Container(
-                    height: SizeCofig.screenHeight! / 14,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: kLightGreen,
-                      borderRadius: BorderRadius.circular(kBorderRadius),
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Book an appointment',
-                        style: kPoppinsBold.copyWith(
-                          fontSize: SizeCofig.blockSizeHorizontal! * 4,
-                          color: kDarkBlue,
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -351,44 +288,67 @@ class _BookAppointmentPageState extends State<BookAppointmentPage> {
     );
   }
 
-  Container dropDownList() {
-    return Container(
-      decoration: BoxDecoration(
-        color: kWhite,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: kGrey.withOpacity(0.22),
-            offset: const Offset(0.0, 4.0),
-            blurRadius: 24.0,
-            spreadRadius: 0.3,
-          ),
-        ],
+  DropdownButtonFormField<String> categoryPicker() {
+    return DropdownButtonFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select category';
+        }
+        return null;
+      },
+      hint: Text(
+        'Choose Category',
+        style: kPoppinsRegular.copyWith(
+          fontSize: SizeCofig.blockSizeHorizontal! * 2.6,
+          color: kGrey,
+        ),
       ),
-      child: DropdownButtonFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 48,
-              vertical: 14,
-            ),
-            prefixIcon: const Icon(Icons.bookmark_add, color: kdarkGreen),
+      style: kPoppinsRegular.copyWith(
+          fontSize: SizeCofig.blockSizeHorizontal! * 3, color: kDarkBlue),
+      iconEnabledColor: kdarkGreen,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(
+          Icons.category,
+          color: kdarkGreen,
+        ),
+        border: UnderlineInputBorder(
+          borderSide: const BorderSide(color: kBorderColor),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        contentPadding: const EdgeInsets.all(20),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: const BorderSide(
+            color: kLightGreen,
           ),
-          style: TextStyle(
-            color: kDarkBlue,
-            fontSize: SizeCofig.blockSizeHorizontal! * 3,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        focusedErrorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: kBorderColor,
           ),
-          dropdownColor: kWhite,
-          value: selectedValue,
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedValue = newValue!;
-            });
+        ),
+        errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: kBorderColor,
+          ),
+        ),
+      ),
+      value: dropdownValue,
+      items: list.map((String value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            value,
+          ),
+        );
+      }).toList(),
+      onChanged: (value) {
+        setState(
+          () {
+            dropdownValue = value.toString();
           },
-          items: dropdownItems),
+        );
+      },
     );
   }
 }
@@ -398,9 +358,11 @@ class HorizontalData extends StatelessWidget {
     super.key,
     required this.leftText,
     required this.rightText,
+    required this.rightColor,
   });
   final String? leftText;
   final String? rightText;
+  final Color? rightColor;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -417,7 +379,7 @@ class HorizontalData extends StatelessWidget {
           rightText!,
           style: kPoppinsSemiBold.copyWith(
             fontSize: SizeCofig.blockSizeHorizontal! * 2.6,
-            color: kdarkGreen,
+            color: rightColor,
           ),
         ),
       ],

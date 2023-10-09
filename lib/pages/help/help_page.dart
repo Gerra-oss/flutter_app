@@ -1,6 +1,7 @@
 import 'package:alt/constant/app_style.dart';
+import 'package:alt/constant/const_svg.dart';
 import 'package:alt/constant/responsive_size.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:alt/pages/help/icon_buttpn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,227 +11,330 @@ class HelpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeCofig().init(context);
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: SizeCofig.blockSizeVertical! * 50,
-              child: Stack(
-                children: [
-                  const FullScreenSlider(),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: kPaddingHorizontal,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(42),
-                          topRight: Radius.circular(42),
-                        ),
-                        color: kLighterWhite,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kWhite,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: SizeCofig.blockSizeVertical! * 50,
+                child: Stack(
+                  children: [
+                    ///
+                    ///
+                    Container(
+                      decoration: const BoxDecoration(),
+                      child: SvgPicture.asset(
+                        'assets/new.svg',
                       ),
                     ),
+
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingHorizontal,
+                          vertical: 60,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(kBorderRadius),
+                                border: Border.all(
+                                  color: kDarkBlue,
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              child: SvgPicture.asset(
+                                'icons/back.svg',
+                              ),
+                            ),
+                            Text(
+                              "Details.",
+                              style: kPoppinsBold.copyWith(
+                                fontSize: SizeCofig.blockSizeHorizontal! * 5,
+                                color: kDarkBlue,
+                              ),
+                            ),
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(kBorderRadius),
+                                border: Border.all(
+                                  color: kDarkBlue,
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              child: SvgPicture.asset(
+                                'icons/bookmark.svg',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: SizeCofig.blockSizeVertical! * 50,
+                decoration: BoxDecoration(
+                  color: kWhite,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(42),
+                    topRight: Radius.circular(42),
                   ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
+                  boxShadow: [
+                    BoxShadow(
+                      color: kGrey.withOpacity(0.4),
+                      offset: const Offset(0.0, 8.0),
+                      blurRadius: 16.0,
+                      spreadRadius: 0.8,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: kPaddingHorizontal,
-                        vertical: 60,
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(kBorderRadius),
-                              border: Border.all(
-                                color: kWhite,
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(12),
-                            child: SvgPicture.asset(
-                              'icons/back.svg',
-                            ),
-                          ),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(kBorderRadius),
-                              border: Border.all(
-                                color: kWhite,
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(12),
-                            child: SvgPicture.asset(
-                              'icons/bookmark.svg',
+                          Text(
+                            "Appointment Summary.",
+                            style: kPoppinsBold.copyWith(
+                              fontSize: SizeCofig.blockSizeHorizontal! * 4,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
-              ),
-              child: Text(
-                "Appointment Details.",
-                style: kPoppinsBold.copyWith(
-                  fontSize: SizeCofig.blockSizeHorizontal! * 5,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
-                vertical: 20,
-              ),
-              height: 54,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(kBorderRadius),
-                border: Border.all(color: kBorderColor),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const CircleAvatar(
-                    radius: 13,
-                    backgroundColor: kBlue,
-                  ),
-                  SizedBox(
-                    width: SizeCofig.blockSizeHorizontal! * 2.5,
-                  ),
-                  Text(
-                    "Appointment Summary.",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: kPoppinsRegular.copyWith(
-                      color: kGrey,
-                      fontSize: SizeCofig.blockSizeHorizontal! * 3,
+                    const SizedBox(
+                      height: 16,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
-              ),
-              child: Text(
-                "All Rights reserved. No part of this publication may be reproduced or transmitted in any"
-                "form or by any means electronic, mechanical, photocopying, recording, or otherwise,"
-                "without the prior written permission of Marcus Santamaria. Perhaps you have modest goals and you are only aiming to get by in Spanish next time you travel\n\n"
-                "to a Spanish speaking county. Maybe, you have Latino friends you want to communicate with in"
-                "Spanish. You may even have a more serious goal of completely mastering the Spanish language. ",
-                textAlign: TextAlign.justify,
-                style: kPoppinsMedium.copyWith(
-                  fontSize: SizeCofig.blockSizeHorizontal! * 4,
-                  color: kDarkBlue,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: SizeCofig.blockSizeVertical! * 7,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-final List<String> imageList = [
-  'assets/01.svg',
-  'assets/02.svg',
-  'assets/03.svg',
-];
-
-class FullScreenSlider extends StatefulWidget {
-  const FullScreenSlider({super.key});
-
-  @override
-  State<FullScreenSlider> createState() => _FullScreenSliderState();
-}
-
-class _FullScreenSliderState extends State<FullScreenSlider> {
-  int _currentIdex = 1;
-  final CarouselController _controller = CarouselController();
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CarouselSlider(
-          carouselController: _controller,
-          options: CarouselOptions(
-            height: SizeCofig.blockSizeVertical! * 50,
-            viewportFraction: 1.0,
-            enlargeCenterPage: false,
-            onPageChanged: (index, reason) {
-              setState(
-                () {
-                  _currentIdex = index;
-                },
-              );
-            },
-            initialPage: _currentIdex,
-          ),
-          items: imageList
-              .map(
-                (item) => Center(
-                  child: SvgPicture.asset(
-                    item,
-                    fit: BoxFit.cover,
-                    height: SizeCofig.blockSizeVertical! * 50,
-                    width: double.infinity,
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              bottom: 52,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imageList
-                  .asMap()
-                  .entries
-                  .map(
-                    (entry) => GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        child: SvgPicture.asset(
-                          _currentIdex == entry.key
-                              ? 'icons/home-details.svg'
-                              : 'icons/history.svg',
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kPaddingHorizontal,
+                      ),
+                      child: Text(
+                        "All Rights reserved. No part of this publication may be reproduced or transmitted in any"
+                        "form or by any means electronic, mechanical, Read More...",
+                        textAlign: TextAlign.justify,
+                        style: kPoppinsMedium.copyWith(
+                          fontSize: SizeCofig.blockSizeHorizontal! * 3,
+                          color: kGrey,
                         ),
                       ),
                     ),
-                  )
-                  .toList(),
-            ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 80,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const DetailStatisticsData(
+                            headerText: 'Category',
+                            bodyText: 'Software',
+                            textHeaderColor: kGrey,
+                            textBodyColor: kDarkBlue,
+                            leftIcon: Icon(Icons.category),
+                          ),
+                          Container(
+                            height: double.infinity,
+                            decoration: const BoxDecoration(
+                              border: Border.symmetric(
+                                vertical: BorderSide(
+                                  width: 0.15,
+                                  color: kGreyWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const DetailStatisticsData(
+                            headerText: 'Days Left',
+                            bodyText: '24',
+                            textHeaderColor: kGrey,
+                            textBodyColor: kDarkBlue,
+                            leftIcon: Icon(Icons.calendar_month),
+                          ),
+                          Container(
+                            height: double.infinity,
+                            decoration: const BoxDecoration(
+                              border: Border.symmetric(
+                                vertical: BorderSide(
+                                  width: 0.15,
+                                  color: kGreyWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const DetailStatisticsData(
+                            headerText: 'Status',
+                            bodyText: 'Upcomming',
+                            textHeaderColor: kGrey,
+                            textBodyColor: kdarkGreen,
+                            leftIcon: Icon(Icons.meeting_room),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: SizeCofig.screenHeight! * 0.2,
+                      width: SizeCofig.screenWidth! * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(kBorderRadius),
+                        color: kLightGreen,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Company Name',
+                                style: kPoppinsBold.copyWith(
+                                  fontSize: SizeCofig.blockSizeHorizontal! * 3,
+                                  color: kDarkBlue,
+                                ),
+                              ),
+                              const Icon(
+                                Icons.donut_large,
+                                color: kdarkGreen,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 36,
+                                backgroundColor: kWhite,
+                                child: ProfilePicture(
+                                  iconPicture:
+                                      SvgPicture.asset('icons/profile.svg'),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Hurry Porter',
+                                    style: kPoppinsBold.copyWith(
+                                      fontSize:
+                                          SizeCofig.blockSizeHorizontal! * 3,
+                                      color: kDarkBlue,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                        color: kWhite,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Row(
+                                      children: [
+                                        const CircleAvatar(
+                                          backgroundColor: kdarkGreen,
+                                          radius: 16,
+                                          child: Icon(
+                                            Icons.done,
+                                            color: kWhite,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Verified Account',
+                                          style: kPoppinsRegular.copyWith(
+                                            fontSize:
+                                                SizeCofig.blockSizeHorizontal! *
+                                                    3,
+                                            color: kDarkBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Delete',
+                                  style: kPoppinsBold.copyWith(
+                                    fontSize:
+                                        SizeCofig.blockSizeHorizontal! * 3.5,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Cancel',
+                                  style: kPoppinsBold.copyWith(
+                                    fontSize:
+                                        SizeCofig.blockSizeHorizontal! * 3.5,
+                                    color: kdarkGreen,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

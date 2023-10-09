@@ -1,5 +1,6 @@
 import 'package:alt/authantication/login_page.dart';
 import 'package:alt/authantication/otp_form.dart';
+import 'package:alt/authantication/passwor_form_text.dart';
 
 import 'package:alt/constant/app_style.dart';
 import 'package:alt/constant/constant_text_form_field.dart';
@@ -17,28 +18,6 @@ class ForgotPassword extends StatefulWidget {
 }
 
 final _formKey = GlobalKey<FormState>();
-bool showHidePassword = true;
-
-bool validPassword(String password, [int minLength = 8]) {
-  if (password.length < minLength) {
-    return false;
-  }
-
-  bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
-  if (hasUppercase) {
-    bool hasDigits = password.contains(RegExp(r'[0-9]'));
-    if (hasDigits) {
-      bool hasLowercase = password.contains(RegExp(r'[a-z]'));
-      if (!hasLowercase) {
-        bool hasSpecialCharacters =
-            password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
-        return hasSpecialCharacters;
-      }
-    }
-  }
-
-  return false;
-}
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   @override
@@ -63,7 +42,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 "Forget Password",
                 style: kPoppinsBold.copyWith(
                   fontSize: SizeCofig.blockSizeHorizontal! * 4,
-                  color: kdarkGreen,
+                  color: kDarkBlue,
                 ),
               ),
               const SizedBox(
@@ -84,12 +63,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const FormContainer(
+                    FormContainer(
                       textForm: TextForm(
+                        errorTextValidator: 'Please Enter Valid Email',
+                        validator: RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"),
+                        controller: TextEditingController(),
+                        onChanged: () {},
+                        errorText: 'Email is 3Required',
                         text: false,
                         textInputType: TextInputType.emailAddress,
-                        formText: 'Enter email',
-                        formIcon: Icon(
+                        formText: 'Enter Email',
+                        formIcon: const Icon(
                           Icons.email,
                           color: kdarkGreen,
                         ),
@@ -98,29 +83,27 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const FormContainer(
-                      textForm: TextForm(
-                        text: true,
-                        textInputType: TextInputType.text,
-                        formText: 'Enter password',
-                        formIcon: Icon(
-                          Icons.password,
-                          color: kdarkGreen,
-                        ),
+                    FormContainer(
+                      textForm: PasswordTextForm(
+                        errorTextValidator: '',
+                        validator: RegExp(''),
+                        onChanged: () {},
+                        errorText: 'Password is Required',
+                        textInputType: TextInputType.visiblePassword,
+                        formText: 'Enter Password',
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const FormContainer(
-                      textForm: TextForm(
-                        text: true,
-                        textInputType: TextInputType.text,
-                        formText: 'Confirm password',
-                        formIcon: Icon(
-                          Icons.password,
-                          color: kdarkGreen,
-                        ),
+                    FormContainer(
+                      textForm: PasswordTextForm(
+                        errorTextValidator: '',
+                        validator: RegExp(''),
+                        onChanged: () {},
+                        errorText: 'Password Should Match',
+                        textInputType: TextInputType.visiblePassword,
+                        formText: 'Confirm Password',
                       ),
                     ),
                     const SizedBox(
@@ -146,7 +129,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           }
                         },
                         child: Text(
-                          "Change password",
+                          "Change Password",
                           style: kPoppinsSemiBold.copyWith(
                             fontSize: SizeCofig.blockSizeHorizontal! * 3,
                             color: kWhite,

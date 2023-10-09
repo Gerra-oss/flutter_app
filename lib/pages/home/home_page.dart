@@ -33,7 +33,10 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
-              icon: SvgPicture.asset('icons/logout.svg'),
+              icon: SvgPicture.asset(
+                'icons/user.svg',
+                width: 20,
+              ),
             ),
           ],
         ),
@@ -90,233 +93,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               detailData(),
-              const SizedBox(
-                height: 3,
-              ),
-              SizedBox(
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: SizeCofig.screenHeight! * 0.26,
-                        width: SizeCofig.screenWidth! * 0.93,
-                        padding: const EdgeInsets.all(26),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(42),
-                              topRight: Radius.circular(42),
-                              bottomLeft: Radius.circular(42),
-                              bottomRight: Radius.circular(42)),
-                          color: kWhite,
-                          boxShadow: [
-                            BoxShadow(
-                              color: kGrey.withOpacity(0.42),
-                              offset: const Offset(0.0, 8.0),
-                              blurRadius: 24.0,
-                              spreadRadius: 0.8,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: SizeCofig.screenHeight! * 0.07,
-                                      width: SizeCofig.screenWidth! * 0.14,
-                                      decoration: BoxDecoration(
-                                          color: kLightGreen,
-                                          borderRadius:
-                                              BorderRadius.circular(100)),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.notifications,
-                                          color: kDarkBlue,
-                                          size: 36,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Emergency',
-                                      style: kPoppinsRegular.copyWith(
-                                        fontSize:
-                                            SizeCofig.blockSizeHorizontal! *
-                                                2.6,
-                                        color: kDarkBlue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: SizeCofig.screenHeight! * 0.07,
-                                      width: SizeCofig.screenWidth! * 0.14,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: kLightGreen,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.call,
-                                          color: kDarkBlue,
-                                          size: 36,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Make Call',
-                                      style: kPoppinsRegular.copyWith(
-                                        fontSize:
-                                            SizeCofig.blockSizeHorizontal! *
-                                                2.6,
-                                        color: kDarkBlue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: SizeCofig.screenHeight! * 0.07,
-                                      width: SizeCofig.screenWidth! * 0.14,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: kLightGreen,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.hail_sharp,
-                                          color: kDarkBlue,
-                                          size: 36,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Sloon',
-                                      style: kPoppinsRegular.copyWith(
-                                        fontSize:
-                                            SizeCofig.blockSizeHorizontal! *
-                                                2.6,
-                                        color: kDarkBlue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: SizeCofig.screenHeight! * 0.07,
-                                      width: SizeCofig.screenWidth! * 0.14,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: kLightGreen,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.person,
-                                          color: kDarkBlue,
-                                          size: 36,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Doctors',
-                                      style: kPoppinsRegular.copyWith(
-                                        fontSize:
-                                            SizeCofig.blockSizeHorizontal! *
-                                                2.6,
-                                        color: kDarkBlue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: SizeCofig.screenHeight! * 0.07,
-                                      width: SizeCofig.screenWidth! * 0.14,
-                                      decoration: BoxDecoration(
-                                        color: kLightGreen,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.coronavirus,
-                                          color: kDarkBlue,
-                                          size: 36,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Covid-19',
-                                      style: kPoppinsRegular.copyWith(
-                                        fontSize:
-                                            SizeCofig.blockSizeHorizontal! *
-                                                2.6,
-                                        color: kDarkBlue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: SizeCofig.screenHeight! * 0.07,
-                                      width: SizeCofig.screenWidth! * 0.14,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: kLightGreen,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.now_widgets,
-                                          color: kDarkBlue,
-                                          size: 36,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'More',
-                                      style: kPoppinsRegular.copyWith(
-                                        fontSize:
-                                            SizeCofig.blockSizeHorizontal! *
-                                                2.6,
-                                        color: kDarkBlue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               const SizedBox(
                 height: 20,
               ),
@@ -324,21 +101,13 @@ class _HomePageState extends State<HomePage> {
                 height: SizeCofig.screenHeight! * 0.23,
                 width: SizeCofig.screenWidth! * 0.93,
                 padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(42),
                       topRight: Radius.circular(42),
                       bottomLeft: Radius.circular(42),
                       bottomRight: Radius.circular(42)),
-                  color: kWhiteBlue,
-                  boxShadow: [
-                    BoxShadow(
-                      color: kLightBlue.withOpacity(0.32),
-                      offset: const Offset(0.0, 3.0),
-                      blurRadius: 24.0,
-                      spreadRadius: 0.8,
-                    ),
-                  ],
+                  color: kLightGreen,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                           'Upcomoming Appointment',
                           style: kPoppinsBold.copyWith(
                             fontSize: SizeCofig.blockSizeHorizontal! * 4,
-                            color: kWhite,
+                            color: kDarkBlue,
                           ),
                         ),
                       ],
@@ -360,7 +129,9 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           height: SizeCofig.blockSizeHorizontal! * 18,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(kBorderRadius),
+                            borderRadius: BorderRadius.circular(
+                              kBorderRadius,
+                            ),
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: SizeCofig.blockSizeHorizontal! / 16),
@@ -392,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                                         personName: 'James Paul',
                                         position: 'Barber',
                                         designation: 'Gastroentelogy',
-                                        textColor: kWhite,
+                                        textColor: kDarkBlue,
                                       )
                                     ],
                                   ),
@@ -421,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                     AppointmentTime(
                       iconPicture: SvgPicture.asset('icons/clock.svg'),
                       textColor: kWhite,
-                      timeColor: kLighterBlue,
+                      timeColor: kdarkGreen,
                     )
                   ],
                 ),

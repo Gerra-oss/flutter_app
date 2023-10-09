@@ -1,4 +1,5 @@
 import 'package:alt/authantication/forget_password.dart';
+import 'package:alt/authantication/passwor_form_text.dart';
 import 'package:alt/authantication/sign_up.dart';
 import 'package:alt/bottom_bar.dart';
 import 'package:alt/constant/app_style.dart';
@@ -17,7 +18,6 @@ class LoginPage extends StatefulWidget {
 }
 
 final _formKey = GlobalKey<FormState>();
-bool showHidePassword = true;
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -65,12 +65,18 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     //email input form
-                    const FormContainer(
+                    FormContainer(
                       textForm: TextForm(
+                        errorTextValidator: 'Please Enter Valid Email',
+                        validator: RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"),
+                        controller: TextEditingController(),
+                        onChanged: () {},
+                        errorText: 'Email is Required',
                         text: false,
                         textInputType: TextInputType.emailAddress,
-                        formText: 'Enter email',
-                        formIcon: Icon(
+                        formText: 'Enter Email',
+                        formIcon: const Icon(
                           Icons.email,
                           color: kdarkGreen,
                         ),
@@ -81,15 +87,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     //password input form
-                    const FormContainer(
-                      textForm: TextForm(
-                        text: true,
-                        textInputType: TextInputType.text,
-                        formText: 'Enter password',
-                        formIcon: Icon(
-                          Icons.password,
-                          color: kdarkGreen,
-                        ),
+                    FormContainer(
+                      textForm: PasswordTextForm(
+                        errorTextValidator: 'Pllease Enter Valid Password',
+                        validator: RegExp(''),
+                        onChanged: () {},
+                        errorText: 'Password is Required',
+                        textInputType: TextInputType.visiblePassword,
+                        formText: 'Enter Password',
                       ),
                     ),
                     const SizedBox(
@@ -98,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       'OR',
                       style: kPoppinsMedium.copyWith(
-                        fontSize: SizeCofig.blockSizeHorizontal! * 4,
+                        fontSize: SizeCofig.blockSizeHorizontal! * 3.5,
                         color: kGrey,
                       ),
                     ),
@@ -113,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         "Forgot Password",
                         style: kPoppinsMedium.copyWith(
-                          fontSize: SizeCofig.blockSizeHorizontal! * 4,
+                          fontSize: SizeCofig.blockSizeHorizontal! * 3.5,
                           color: kGrey,
                         ),
                       ),
@@ -150,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have account ",
+                          "Don't have Account ",
                           style: kPoppinsRegular.copyWith(
                             fontSize: SizeCofig.blockSizeHorizontal! * 2.6,
                             color: kGrey,
@@ -165,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           },
                           child: Text(
-                            "sign up",
+                            "Sign Up",
                             style: kPoppinsRegular.copyWith(
                               fontSize: SizeCofig.blockSizeHorizontal! * 2.6,
                               color: kdarkGreen,

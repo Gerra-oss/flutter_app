@@ -146,16 +146,22 @@ class _AccountPageState extends State<AccountPage> {
                           const ContactStatisticsData(
                             headerText: '178',
                             bodyText: 'Booked',
+                            textHeaderColor: kDarkBlue,
+                            textBodyColor: kGrey,
                           ),
                           dividerContainer(),
                           const ContactStatisticsData(
                             headerText: '42',
                             bodyText: 'Attended',
+                            textHeaderColor: kDarkBlue,
+                            textBodyColor: kGrey,
                           ),
                           dividerContainer(),
                           const ContactStatisticsData(
                             headerText: '4',
                             bodyText: 'Cancelled',
+                            textHeaderColor: kDarkBlue,
+                            textBodyColor: kGrey,
                           ),
                         ],
                       ),
@@ -287,9 +293,14 @@ class ContactStatisticsData extends StatelessWidget {
     super.key,
     required this.headerText,
     required this.bodyText,
+    required this.textHeaderColor,
+    required this.textBodyColor,
   });
   final String headerText;
   final String bodyText;
+  final Color textHeaderColor;
+  final Color textBodyColor;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -298,15 +309,15 @@ class ContactStatisticsData extends StatelessWidget {
         Text(
           headerText,
           style: kPoppinsBold.copyWith(
-            fontSize: SizeCofig.blockSizeHorizontal! * 4,
-            color: kDarkBlue,
+            fontSize: SizeCofig.blockSizeHorizontal! * 3,
+            color: textHeaderColor,
           ),
         ),
         Text(
           bodyText,
-          style: kPoppinsSemiBold.copyWith(
-            fontSize: SizeCofig.blockSizeHorizontal! * 2,
-            color: kGrey,
+          style: kPoppinsRegular.copyWith(
+            fontSize: SizeCofig.blockSizeHorizontal! * 2.5,
+            color: textBodyColor,
           ),
         ),
       ],

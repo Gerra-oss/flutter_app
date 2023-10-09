@@ -1,5 +1,4 @@
 import 'package:alt/constant/app_style.dart';
-import 'package:alt/constant/responsive_size.dart';
 import 'package:alt/pages/account/account_page.dart';
 import 'package:alt/pages/appointment/appointment_page.dart';
 import 'package:alt/pages/appointment/book_appointment_page.dart';
@@ -56,10 +55,20 @@ class _BottomBarState extends State<BottomBar> {
                   : SvgPicture.asset(
                       'icons/appointment.svg',
                     ),
-              label: 'Appointment',
+              label: 'History',
             ),
             NavigationDestination(
               icon: currentPageIndex == 2
+                  ? SvgPicture.asset(
+                      'icons/users-alt-selected.svg',
+                    )
+                  : SvgPicture.asset(
+                      'icons/users-alt.svg',
+                    ),
+              label: 'Book',
+            ),
+            NavigationDestination(
+              icon: currentPageIndex == 3
                   ? SvgPicture.asset(
                       'icons/help_selected.svg',
                     )
@@ -69,12 +78,14 @@ class _BottomBarState extends State<BottomBar> {
               label: 'Help',
             ),
             NavigationDestination(
-              icon: currentPageIndex == 3
+              icon: currentPageIndex == 4
                   ? SvgPicture.asset(
-                      'icons/account_selected.svg',
+                      'icons/user-selected.svg',
+                      width: 20,
                     )
                   : SvgPicture.asset(
-                      'icons/account.svg',
+                      'icons/user.svg',
+                      width: 20,
                     ),
               label: 'Account',
             ),
@@ -90,27 +101,10 @@ class _BottomBarState extends State<BottomBar> {
           },
           indicatorColor: Colors.white,
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const BookAppointmentPage()),
-            );
-          },
-          label: Text(
-            'Book new\nappointment',
-            style: kPoppinsRegular.copyWith(
-              fontSize: SizeCofig.blockSizeHorizontal! * 3,
-              color: kDarkBlue,
-            ),
-          ),
-          backgroundColor: kLightGreen,
-          elevation: 0,
-        ),
         body: const [
           HomePage(),
           AppointmentPage(),
+          BookAppointmentPage(),
           HelpPage(),
           AccountPage()
         ][currentPageIndex],

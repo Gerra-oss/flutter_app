@@ -1,5 +1,7 @@
 import 'package:alt/authantication/login_page.dart';
 import 'package:alt/authantication/otp_form.dart';
+import 'package:alt/authantication/passwor_form_text.dart';
+import 'package:alt/authantication/phone_number_form.dart';
 
 import 'package:alt/constant/app_style.dart';
 import 'package:alt/constant/constant_text_form_field.dart';
@@ -87,11 +89,17 @@ class _SignUpState extends State<SignUp> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const FormContainer(
+                    FormContainer(
                       textForm: TextForm(
+                          errorTextValidator: 'Please Enter Valid Name',
+                          validator: RegExp(
+                              r"^\s*([A-Za-z]{4,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$"),
+                          controller: TextEditingController(),
+                          onChanged: () {},
+                          errorText: 'Full Name is Required',
                           text: false,
-                          formText: 'Enter full Name',
-                          formIcon: Icon(
+                          formText: 'Full Name',
+                          formIcon: const Icon(
                             Icons.person,
                             color: kdarkGreen,
                           ),
@@ -100,11 +108,15 @@ class _SignUpState extends State<SignUp> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const FormContainer(
-                      textForm: TextForm(
-                          text: false,
-                          formText: 'Enter phone no',
-                          formIcon: Icon(
+                    FormContainer(
+                      textForm: PhoneTextForm(
+                          errorTextValidator: 'Please Enter Valid Phone No',
+                          validator: RegExp(r"^\+?0[0-9]{10}$"),
+                          controller: TextEditingController(),
+                          onChanged: () {},
+                          errorText: 'Phone Number is Required',
+                          formText: 'Enter Phone No',
+                          formIcon: const Icon(
                             Icons.call,
                             color: kdarkGreen,
                           ),
@@ -113,41 +125,48 @@ class _SignUpState extends State<SignUp> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const FormContainer(
+                    FormContainer(
                       textForm: TextForm(
-                          text: false,
-                          formText: 'Enter email',
-                          formIcon: Icon(
-                            Icons.email,
-                            color: kdarkGreen,
-                          ),
-                          textInputType: TextInputType.emailAddress),
+                        errorTextValidator: 'Please Enter Valid Email',
+                        validator: RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"),
+                        controller: TextEditingController(),
+                        onChanged: () {},
+                        errorText: 'Email is Required',
+                        text: false,
+                        formText: 'Enter Email',
+                        formIcon: const Icon(
+                          Icons.email,
+                          color: kdarkGreen,
+                        ),
+                        textInputType: TextInputType.emailAddress,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const FormContainer(
-                      textForm: TextForm(
-                          text: true,
-                          formText: 'Enter password',
-                          formIcon: Icon(
-                            Icons.password,
-                            color: kdarkGreen,
-                          ),
-                          textInputType: TextInputType.text),
+                    FormContainer(
+                      textForm: PasswordTextForm(
+                        errorTextValidator: '',
+                        validator: RegExp(''),
+                        onChanged: () {},
+                        errorText: 'Password is Required',
+                        formText: 'Enter Password',
+                        textInputType: TextInputType.visiblePassword,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const FormContainer(
-                      textForm: TextForm(
-                          text: true,
-                          formText: 'Confirm password',
-                          formIcon: Icon(
-                            Icons.password,
-                            color: kdarkGreen,
-                          ),
-                          textInputType: TextInputType.text),
+                    FormContainer(
+                      textForm: PasswordTextForm(
+                        errorTextValidator: '',
+                        validator: RegExp(''),
+                        onChanged: () {},
+                        errorText: 'Password Should Match',
+                        formText: 'Confirm Password',
+                        textInputType: TextInputType.visiblePassword,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
@@ -172,9 +191,9 @@ class _SignUpState extends State<SignUp> {
                           }
                         },
                         child: Text(
-                          "Signup",
+                          "Sign Up",
                           style: kPoppinsSemiBold.copyWith(
-                            fontSize: SizeCofig.blockSizeHorizontal! * 4,
+                            fontSize: SizeCofig.blockSizeHorizontal! * 3,
                             color: kWhite,
                           ),
                         ),
@@ -184,7 +203,7 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Have account ",
+                          "Have Account ",
                           style: kPoppinsRegular.copyWith(
                             fontSize: SizeCofig.blockSizeHorizontal! * 2.6,
                             color: kGrey,
