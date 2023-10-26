@@ -1,4 +1,3 @@
-import 'package:alt/constant/app_style.dart';
 import 'package:alt/pages/account/account_page.dart';
 import 'package:alt/pages/appointment/appointment_page.dart';
 import 'package:alt/pages/appointment/book_appointment_page.dart';
